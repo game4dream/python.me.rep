@@ -1,6 +1,7 @@
+#!/usr/bin/env python
+#encoding=utf-8
 '''
 Created on 2013-11-1
-
 @author: chenming
 '''
 
@@ -8,7 +9,9 @@ import os, sys
 from optparse import OptionParser, OptionGroup
 
 reload(sys)
-sys.setdefaultencoding('utf8')  
+sys.setdefaultencoding('utf8')
+
+options = None
 
 def analysis():
     usage = '%prog'
@@ -26,12 +29,14 @@ def analysis():
     (options, _) = parser.parse_args()
     return options
 
-def insertServer():
-    cmd = 'ls'
-    file = os.popen(cmd)
-    for line in file:
-        line = str(line).replace('\n', '')
+def doBuz():
+    pass
+    # cmd = 'ls'
+    # file = os.popen(cmd)
+    # for line in file:
+    #     line = str(line).replace('\n', '')
 
 if __name__ == '__main__':
     options = analysis()
+    doBuz()
     print('Over!!!')
