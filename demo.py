@@ -15,7 +15,7 @@ options = None
 
 def analysis():
     usage = '%prog'
-    parser = OptionParser(usage, prog=u'模板脚本', version='%prog 1.0')
+    parser = OptionParser(usage, prog=u'脚本模板', version='%prog 1.0')
     group = OptionGroup(parser, 
                         'desc and example', 
                         u'''
