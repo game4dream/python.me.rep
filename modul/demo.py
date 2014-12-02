@@ -15,6 +15,7 @@ import shutil
 # 重设编码格式
 reload(sys)
 sys.setdefaultencoding('utf8') 
+os.environ['LC_ALL'] = "en_US.UTF-8" # cron环境问题导致中文乱码
 
 readme = u'''脚本简介'''
 
