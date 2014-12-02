@@ -11,6 +11,10 @@ from optparse import OptionParser, OptionGroup
 import urllib, urllib2, cookielib, socket
 import time
 import shutil
+from email.MIMEMultipart import MIMEMultipart
+from email.MIMEBase import MIMEBase
+from email.MIMEText import MIMEText
+import email.Encoders as encoders
 
 # 重设编码格式
 reload(sys)
@@ -47,6 +51,43 @@ def analysis():
     parser.add_option_group(group)
     (options, _) = parser.parse_args()
     return options
+
+def send_mail(mail_from, mail_to, subject, msg_txt, files=[]):
+    
+    msg = MIMEMultipart('alternative')
+    msg['Subject'] = subject
+    msg['From'] = mail_from
+    msg['To'] = mail_to
+
+    
+    # 文本方式邮件内容
+    #text = msg
+    #part1 = MIMEText(text, 'plain')
+
+    # html方式邮件内容
+    html = msg_txt
+    part2 = MIMEText(html, 'html')
+
+    # 加入内容
+    #msg.attach(part1)
+    msg.attach(part2)
+
+    # 附件
+    for f in files:
+        #octet-stream:binary data
+        part = MIMEBase('application', 'octet-stream')
+        part.set_payload(open(f, 'rb').read())
+        encoders.encode_base64(part)
+        part.add_header('Content-Disposition', 'attachment; filename="%s"' % os.path.basename(f))
+        msg.attach(part)
+    # smtp host
+    s = smtplib.SMTP('mail.game-reign.com')
+
+    mailto_list = mail_to.strip().split(";")
+    s.sendmail(mail_from, mailto_list, msg.as_string())
+
+    s.quit()
+    return True
 
 # 控制台及时输出，不换行
 def log(i):
