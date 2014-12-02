@@ -43,6 +43,7 @@ def analysis():
     group = OptionGroup(parser, 
                         'desc and example', 
                         readme)
+    group.add_option('-l', action='store', dest='lv', default='60', help=u'描述')
     parser.add_option_group(group)
     (options, _) = parser.parse_args()
     return options
